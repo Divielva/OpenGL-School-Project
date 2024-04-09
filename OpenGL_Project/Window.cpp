@@ -42,10 +42,10 @@ SpotLight* spotLight;
 Heightmap heightmap;
 
 Bezier<glm::vec3> curve{
-    glm::vec3(3.5f, 0, 33.5f),
-    glm::vec3(3.5f, 0, 17),
-    glm::vec3(-15, 0, 33.5),
-    glm::vec3(-15, 0, 17)
+    glm::vec3(5.5f, 0, 30.f),
+    glm::vec3(2.5f, 0, 17),
+    glm::vec3(-25, 0, 35.0),
+    glm::vec3(-10, 0, 15)
 };
 
 glm::vec3 pointLightPositions[] = {
