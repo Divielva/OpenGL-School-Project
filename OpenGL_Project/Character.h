@@ -19,7 +19,7 @@ class Character
     float radius = .5f;
     Material* material;
     Capsule model;
-    Sphere model1;
+    //Sphere model;
     Cone look;
     Camera camera;
     ICollisionOld* collision;

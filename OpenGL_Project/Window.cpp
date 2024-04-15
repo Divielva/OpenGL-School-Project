@@ -59,7 +59,9 @@ Material* container = nullptr;
 Material* brick = nullptr;
 Material* grass = nullptr;
 Material* emptyMat = nullptr;
+Material* kirbyMat = nullptr;
 Cube *cube2 = nullptr;
+Cube *cube3 = nullptr;  
 InputProcessing input;
 ObjectBuffer objBuffer;
 Character character;
@@ -189,13 +191,22 @@ void Window::create_objects()
     container->load_texture("container", "container.png");
 
     emptyMat = new Material();
+
     emptyMat->load_texture("empty", "empty.png");
 
     grass = new Material();
 
     grass->load_texture("grass", "Grass.png");
 
-    heightmap.generate_terrain("textures/Heightmap1.png", 30, .4f);
+    brick = new Material();
+
+    brick->load_texture("brick", "brick.jpg");
+
+    kirbyMat = new Material();  
+
+    kirbyMat->load_texture("kirby", "Kirby.jpg");
+
+    heightmap.generate_terrain("textures/Heightmap1.png", 30, .8f);
     heightmap.set_albedo(hsl(133, 1, .57f));
     heightmap.set_shader(ShaderStore::get_shader("default"));
     heightmap.material = grass;
@@ -236,6 +247,16 @@ void Window::create_objects()
 
     objBuffer.add_object(cube2);
 
+    const auto cube3 = new Cube();  
+
+    cube3->set_position(heightmap.get_collider().get_height_at_coord(glm::vec3(2.f, 0, 2.0f)) + glm::vec3(0, .7, 0));
+    cube3->set_scale(glm::vec3(.7f, .7f, .7f));
+    cube3->set_albedo(pointColor);
+    cube3->set_shader(ShaderStore::get_shader("default"));
+    cube3->material = brick;
+
+    objBuffer.add_object(cube3);
+
     light0.index = 0;
     light0.position = pointLightPositions[0];
     light0.diffuse = pointColor;
@@ -273,7 +294,7 @@ void Window::create_objects()
 
     character.set_position(heightmap.get_collider().get_height_at_coord(pointLightPositions[0] - glm::vec3(2, 0, 0)));
     character.set_shader(ShaderStore::get_shader("default"));
-    character.set_material(emptyMat);
+    character.set_material(kirbyMat);
 
     ShaderStore::set_shader_params(
         [](const Shader* shad)
@@ -304,7 +325,7 @@ void Window::update() const
     {
         lastSubdivision = subdivision;
     }
-    cube2->set_position(heightmap.get_collider().get_height_at_coord(curve(std::fmod(TimeManager::get_active_time() * 100, 1.0)))); 
+    cube2->set_position(heightmap.get_collider().get_height_at_coord(curve(std::fmod(TimeManager::get_active_time() * 300, 1.0)))); 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glPointSize(5);
     // enable gl wireframe mode

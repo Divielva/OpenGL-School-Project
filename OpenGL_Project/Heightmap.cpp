@@ -21,7 +21,7 @@ void Heightmap::generate_terrain(const char* heightmap_path, const float& height
         for (int x = 0; x < width; x++)
         {
             float height = (data[(z * width + x) * channels] / 255.0f - 0.5f) * height_scale;
-            vertices.push_back(Vertex{ glm::vec3(x * texture_scale, height, z * texture_scale), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec2(x * 1.f/width, z * 1.f/height)});
+            vertices.push_back(Vertex{ glm::vec3(x * texture_scale, height, z * texture_scale), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec2(x / 8.f, z / 8.f)});
         }
     }
 
